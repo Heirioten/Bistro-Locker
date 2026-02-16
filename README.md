@@ -4,11 +4,11 @@ This was the final project for my Internet of Things course in Fall 2025. The pr
 * 🛜 Client-Server Connection
 * 🛢 Concurrent Database Management
 
-# 🔌 Arduino Process
+## 🔌 Arduino Process
 
-# 🛜 Client-Server Connection
+## 🛜 Client-Server Connection
 
-# 🛢 Concurrent Database Management
+## 🛢 Concurrent Database Management
 
 ## ✍️ Author
 [Nicholas Lyons](https://github.com/Heirioten)
