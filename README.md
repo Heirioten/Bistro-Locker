@@ -1,7 +1,7 @@
 # Bistro Locker 🍔🔒
 This was the final project for my Internet of Things course in Fall 2025. The project is broken into two major components:  
 * 🔌 Arduino Process
-* 🛢 Python Middlebox Server
+* 🖥️ Python Middlebox Server
 
 ## 🌟 Highlights
 
@@ -78,7 +78,7 @@ Servo Motor simulates a locking mechanism:
 * 180° → Unlock
 * 0° → Lock
 
-## 🛢 Python Middlebox Server
+## 🖥️ Python Middlebox Server
 
 This Python process is a multi-threaded backend server that integrates RFID validation, database management, and a live web interface. It acts as the central authority for the Arduino process, handling authentication, updating records, and serving real-time web content.
 
