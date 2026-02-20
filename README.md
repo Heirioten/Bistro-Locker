@@ -30,15 +30,7 @@ The idea was to have a RFID scanner process that will send ID info to a main ser
 
 ## 🔌 Arduino Process
 
-WiFi-Connected RFID Smart Lock System (Arduino)
-
-This project is a network-enabled RFID smart lock system built on Arduino that integrates wireless communication, event-driven logic, and hardware control using a Finite State Machine (FSM) architecture. The system scans RFID cards, validates credentials through a remote server, and controls a servo-actuated locking mechanism.
-
-### ⚙️ Key Features
-* Robust WiFi connection handling with retry logic
-* Token-based message parsing
-* Time-window-based event firing
-* Modular, readable state-machine implementation
+This component of the project is a network-enabled RFID smart lock system built on Arduino that integrates wireless communication, event-driven logic, and hardware control using a Finite State Machine architecture. The system scans RFID cards, validates credentials through a remote server, and controls a servo-actuated locking mechanism.
 
 ### 🔧 Technologies & Hardware Used
 
@@ -51,7 +43,7 @@ This project is a network-enabled RFID smart lock system built on Arduino that i
 
 ### 🧠 System Architecture
 
-The project is designed around a Finite State Machine (FSM) for clean state transitions and modular logic separation. The primary states include:
+The project is designed around a Finite State Machine for clean state transitions and modular logic separation. The primary states include:
 * GET_REQUEST – Waits for registration from a remote server
 * PARSE_REQUEST – Parses and validates incoming configuration
 * SENSE_RFID – Scans for RFID credentials
@@ -60,8 +52,6 @@ The project is designed around a Finite State Machine (FSM) for clean state tran
 * UNLOCK – Actuates servo to unlock
 * SENSE_CLOSE – Waits for user button press
 * LOCK – Re-locks the system
-
-This design ensures non-blocking behavior, predictable execution flow, and scalable expansion.
 
 ### 🌐 Network Registration & Event Configuration
 
@@ -82,20 +72,15 @@ Upon validation:
 * "VALID" → Servo unlocks door
 * "NOT_VALID" → System returns to scanning mode
 
-This creates a secure client-server authentication workflow.
-
 ### 🔒 Physical Access Control
 
 Servo Motor simulates a locking mechanism:
 * 180° → Unlock
 * 0° → Lock
 
-Push Button detects when the door is closed before re-locking.
-Time-based validation ensures secure session handling
-
 ## 🛢 Python Middlebox Server
 
-Multi-Threaded RFID Validation & Web Management Server
+This Python process is a multi-threaded backend server that integrates RFID validation, database management, and a live web interface. It acts as the central authority for the Arduino process, handling authentication, updating records, and serving real-time web content.
 
 ### ⚙️ Key Features
 
@@ -114,22 +99,22 @@ The application runs three concurrent services:
 * Web Server – Hosts a live order management interface
 * Database Writer Thread – Safely updates CSV-based records
 
-Threading and synchronization primitives (Lock) ensure safe concurrent access to shared resources.
+Threading and Locks ensure safe concurrent access to shared resources.
 
 ### 📡 RFID Validation Workflow
-Arduino sends scanned RFID UID via TCP
-Server checks UID against Students.csv
+
+Arduino sends scanned RFID UID via TCP.
+Server checks UID against Students.csv.
+
 Validation rules:
 * UID must exist
 * Student must have available “orders” (balance > 0)
 
 Server responds with: VALID or NOT_VALID
 
-If VALID:
-* Decrements student order count
-* Updates database asynchronously
-
-This creates a full client-server authentication loop between embedded hardware and backend logic.
+If VALID, the server will:
+* Decrement the student order count
+* Update the database asynchronously
 
 ### 🌐 Built-In Web Server
 The system includes a custom socket-based HTTP server that:
@@ -138,23 +123,21 @@ The system includes a custom socket-based HTTP server that:
 * Displays current active orders
 * Dynamically renders student order counts from CSV
 
-This allows users to order digitally through a web interface.
+This allows students to order digitally through a web interface.
 
 ### 🗄 Database Management
 
-Using a CSV file as a persistent storage, this process:
+Using a CSV file as a persistent storage, the server:
 
 * Implements thread-safe read/write operations
 * Processes updates through a queue (databaseEntries)
 * Applies modifications via a dedicated writer thread
 
-This design prevents race conditions while maintaining responsiveness.
-
 ### 🔒 Concurrency & Thread Safety
 
-The system demonstrates careful multi-threaded design:
-* clientRequests queue with lock protection
-* databaseEntries queue with lock protection
+Using factory design pattern to facilitate concurrency, we create:
+* A clientRequests queue with lock protection
+* A databaseEntries queue with lock protection
 
 Dedicated locks for:
 * Database file access
