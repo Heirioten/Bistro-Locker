@@ -3,7 +3,7 @@ This was the final project for my Internet of Things course in Fall 2025. The pr
 * 🔌 Arduino Process
 * 🛢 Python Middlebox Server
 
-## 🏗 Engineering Highlights
+## 🌟 Highlights
 
 * Designed a scalable FSM architecture
 * Implemented TCP client-server communication on an Arduino microcontroller
